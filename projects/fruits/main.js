@@ -6,7 +6,7 @@ game_config = {
 game = new Game(game_config)
 
 player_config = {
-  image: "Bowl.png",
+  image: "bowl.png",
   edges: CLAMP,
   location: BOTTOM_CENTER,
   collisionHandler: playerCollisionHandler,
