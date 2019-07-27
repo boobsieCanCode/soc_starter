@@ -22,7 +22,7 @@ player = new PlayerSprite(player_config)
 game.add(player)
 
 enemies = []
-for (n = 0; n < 3; n++) {
+for (n = 0; n < 6; n++) {
   item_config = {
     imageChoices: ["ufo.png"],
     location: randomStartLocation,
@@ -59,7 +59,7 @@ function playerCollisionHandler(src, target) {
 
 function projectileCollisionHandler(src, target) {
   if (target instanceof EnemySprite) {
-    game.remove(target)
+    target.respawn()
     game.remove(src)
     score = score + 10
   }
@@ -89,22 +89,23 @@ function startRetreatState(ufo) {
 }
 
 function enemyStateMachine() {
-  for (z = 0; z < enemies.length; z++) {
-    enemy = enemies[z]
+  for(a = 0; a < enemies.length; a++) {
+    enemy = enemies[a]
 
-    if (random(1,100) <= 1) {
-      //what is current state
-      if(enemy.state == "STANDBY") {
+    // change state with 1% probability
+    if (random (1,100) <=1) {
+        //what is current state
+      if (enemy.state == "STANDBY") {
         // attack with 50% probability
-        if (random(1, 100) <= 50) {
+        if (random (1,100) <=50){
           startAttackState(enemy)
         } else {
           startRetreatState(enemy)
         }
       }
-      else if(enemy.state == "RETREAT") {
+      else if (enemy.state == "RETREAT") {
         // attack with 50% probability
-        if (random(1, 100) <= 50) {
+        if (random (1,100) <=50) {
           startAttackState(enemy)
         } else {
           startStandbyState(enemy)
